@@ -187,26 +187,17 @@ const ParqueForm = () => {
             {formik.values.parques.map((parque, index) => (
               <div key={index}>
                 <h3>Parque {index + 1}</h3>
-
                 <TextField label="Nombre del Parque" id={`parque-${index}`} name={`parques[${index}].parque`} />
                 <SelectField label="Municipio" id={`municipio-${index}`} name={`parques[${index}].municipio`} options={municipios} />
 
-                <TextField
-                  label="Ubicación en Coordenadas"
-                  id={`coordenadas-${index}`}
-                  name={`parques[${index}].coordenadas`}
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    const coords = formik.values.parques[index].coordenadas.split(',').map(parseFloat);
-                    setCoordinates(coords);
-                  }}
-                >
+                <TextField label="Ubicación en Coordenadas" id={`coordenadas-${index}`} name={`parques[${index}].coordenadas`} />
+                <button type="button" onClick={() => {
+                  const coords = formik.values.parques[index].coordenadas.split(',').map(parseFloat);
+                  setCoordinates(coords);
+                }}>
                   Actualizar Mapa
                 </button>
                 <MapComponent coordinates={coordinates} />
-
                 <TextField label="Ubicación en Texto" id={`ubicacionTexto-${index}`} name={`parques[${index}].ubicacionTexto`} />
                 <TextField label="Medidas de Área en m2" id={`area-${index}`} name={`parques[${index}].area`} />
                 <TextField label="Medidas de Perímetro en m2" id={`perimetro-${index}`} name={`parques[${index}].perimetro`} />
@@ -218,20 +209,13 @@ const ParqueForm = () => {
                 ]} />
                 <FileField label="Polígono del Parque (KML/KMZ)" id={`poligonoKML-${index}`} name={`parques[${index}].poligonoKML`} accept=".kml,.kmz" />
                 <FileField label="Fotos del Parque (solo archivos .jpg, .jpeg)" id={`fotos-${index}`} name={`parques[${index}].fotos`} accept=".jpg, .jpeg" multiple />
-
-
                 <button type="button" onClick={() => handleRemoveParque(formik, index)}>Eliminar Parque</button>
-
               </div>
             ))}
-
             <button type="button" onClick={() => handleAddParque(formik)}>Agregar Parque</button>
             <button type="submit">Enviar</button>
             {formSubmitted && formSuccess && <div>¡El formulario se envió exitosamente!</div>}
             {formSubmitted && !formSuccess && <div>¡El formulario no se pudo enviar!</div>}
-
-
-
           </Form>
         )}
       </Formik>
