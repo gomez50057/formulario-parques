@@ -117,6 +117,21 @@ const ParqueForm = () => {
     }]
   };
 
+  const validationSchema = Yup.object().shape({
+    parques: Yup.array().of(
+      Yup.object().shape({
+        parque: Yup.string().required('El nombre del parque es requerido'),
+        coordenadas: Yup.string().required('Las coordenadas son requeridas'),
+        ubicacionTexto: Yup.string().required('La ubicación en texto es requerida'),
+        area: Yup.string().required('El área es requerida'),
+        perimetro: Yup.string().required('El perímetro es requerido'),
+        poligonoKML: Yup.string().required('El polígono del parque es requerido'),
+        municipio: Yup.string().required('El municipio es requerido'),
+        captura: Yup.string().required('Quién realiza la captura es requerido'),
+      })
+    )
+  });
+
   const handleAddParque = (formik) => {
     formik.setFieldValue('parques', [...formik.values.parques, { ...initialValues.parques[0] }]);
   };
@@ -155,9 +170,7 @@ const ParqueForm = () => {
       <h2>Formulario de Parque</h2>
       <Formik
         initialValues={initialValues}
-        validationSchema={Yup.object().shape({
-
-        })}
+        validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           // console.log(values);
           onSubmitForm(values); // Llama a la función para enviar los datos al backend          
