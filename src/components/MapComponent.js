@@ -15,7 +15,14 @@ const MapComponent = ({ coordinates }) => {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    markerRef.current = L.marker(coordinates).addTo(map);
+    const customIcon = L.icon({
+      iconUrl: '/parque.png',
+      iconSize: [30, 30], // Tamaño del icono
+      iconAnchor: [15, 15], // Punto de anclaje del icono
+      popupAnchor: [0, -15] // Punto de anclaje del popup
+    });
+
+    markerRef.current = L.marker(coordinates, { icon: customIcon }).addTo(map);
 
     map.fitBounds([coordinates]);
 
