@@ -6,8 +6,10 @@ import axios from 'axios';
 import { TextField, SelectField, FileField, CheckboxGroup } from './CustomFields';
 
 import './components.css';
+import MapComponent from './MapComponent';
 
 
+const defaultCoordinates = [20.122456535910004, -98.7368359132531];
 
 
 const municipios = [
@@ -101,6 +103,8 @@ const municipios = [
 const ParqueForm = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
+  const [coordinates, setCoordinates] = useState(defaultCoordinates);
+
 
   const initialValues = {
     parques: [{
@@ -186,7 +190,23 @@ const ParqueForm = () => {
 
                 <TextField label="Nombre del Parque" id={`parque-${index}`} name={`parques[${index}].parque`} />
                 <SelectField label="Municipio" id={`municipio-${index}`} name={`parques[${index}].municipio`} options={municipios} />
-                <TextField label="Ubicación en Coordenadas" id={`coordenadas-${index}`} name={`parques[${index}].coordenadas`} />
+
+                <TextField
+                  label="Ubicación en Coordenadas"
+                  id={`coordenadas-${index}`}
+                  name={`parques[${index}].coordenadas`}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const coords = formik.values.parques[index].coordenadas.split(',').map(parseFloat);
+                    setCoordinates(coords);
+                  }}
+                >
+                  Actualizar Mapa
+                </button>
+                <MapComponent coordinates={coordinates} />
+
                 <TextField label="Ubicación en Texto" id={`ubicacionTexto-${index}`} name={`parques[${index}].ubicacionTexto`} />
                 <TextField label="Medidas de Área en m2" id={`area-${index}`} name={`parques[${index}].area`} />
                 <TextField label="Medidas de Perímetro en m2" id={`perimetro-${index}`} name={`parques[${index}].perimetro`} />

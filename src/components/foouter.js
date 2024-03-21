@@ -8,7 +8,7 @@ const Footer = () => {
       </div>
       <div className="fooutertxt">
         <div className="foouterBar"></div>
-        <h2>Reconocimiento a las Buenas<span>Prácticas de Planeación Municipal</span></h2>
+        <h2>Formulario Captura de Parques</h2>
         <div className="foouterInfo">
           <h2>Unidad de Planeación y Prospectiva</h2>
           <div className="foouterUbicacion">
